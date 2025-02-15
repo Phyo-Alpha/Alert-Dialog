@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: hsl(240 3% 94%);
+  --color-foreground: hsl(240 3% 10%);
+  --color-success: hsl(112 86% 40%);
+  --color-destructive: hsl(0 100% 50%);
+  --color-pending: hsl(45.6 100% 52%);
+  --color-accent: hsl(240 3% 20%);
+}
+
+:root {
+  --radius: 0.6rem;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Custom styles */
+.demo-container {
+  @apply container mx-auto px-4 py-12;
+}
+
+.demo-header {
+  @apply mb-16 text-center;
+}
+
+.feature-grid {
+  @apply grid md:grid-cols-3 gap-8 mb-16;
+}
+
+.component-card {
+  @apply p-6 rounded-xl border bg-background shadow-lg transition-all hover:shadow-xl;
+}
+
+.code-block {
+  @apply p-4 rounded-lg bg-foreground text-background font-mono text-sm;
+}
+
+.preview-section {
+  @apply flex flex-col items-center gap-4 p-6 rounded-xl border bg-background/50;
+}
