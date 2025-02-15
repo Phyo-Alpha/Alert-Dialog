@@ -19,10 +19,10 @@ A lightweight, customizable, and accessible alert dialog library built with **Re
 1. Install the library:
 
    ```bash
-   npm install @your-library/alerts
+   npm install @phyo-alpha/alert-dialog
    ```
 2. Import the `AlertProvider` component in your app:
-   
+
    ```code
    import { AlertProvider } from "@your-library/alerts";
 
@@ -33,15 +33,15 @@ A lightweight, customizable, and accessible alert dialog library built with **Re
             </AlertProvider>
         );
     }
-   ``` 
+   ```
 
 ---
 
 ## Usage
 
-### Basic Example 
+### Basic Example
 
-```code 
+```code
 import { useAlert } from "@your-library/alerts";
 
 function Example() {
@@ -131,23 +131,24 @@ alert.guard({
 
 ### Alert Dialog Props
 
-| Prop          | Type     | Description                                                                 |
-| ------------- | -------- | --------------------------------------------------------------------------- |
-| `title`       | string   | The title of the alert.                                                     |
-| `description` | string   | The description of the alert.                                               |
-| `icon`        | ReactNode| An optional icon to display in the alert.                                           |
-| `actions`     | Action[] | An array of actions (buttons or links) to display in the alert.                                |
-| modelType     | AlertDialogTypeKeys   | The type of alert (SUCCESS_ALERT, ERROR_ALERT, INFO_ALERT, GUARD_ALERT).               |
-| ApiError      | ApiError | An optional object containing the API error details (status, data). |
+| Prop            | Type                | Description                                                              |
+| --------------- | ------------------- | ------------------------------------------------------------------------ |
+| `title`       | string              | The title of the alert.                                                  |
+| `description` | string              | The description of the alert.                                            |
+| `icon`        | ReactNode           | An optional icon to display in the alert.                                |
+| `actions`     | Action[]            | An array of actions (buttons or links) to display in the alert.          |
+| modelType       | AlertDialogTypeKeys | The type of alert (SUCCESS_ALERT, ERROR_ALERT, INFO_ALERT, GUARD_ALERT). |
+| ApiError        | ApiError            | An optional object containing the API error details (status, data).      |
 
 ### Alert Action Props
-| Prop          | Type     | Description                                                                 |
-| ------------- | -------- | --------------------------------------------------------------------------- |
-| `name`        | string   | The name of the action.                                                     |
-| `type`        | string   | The type of action (button, link).                                          |
-| `props`       | object   | Props for the action (e.g., href for links, onClick for buttons).                                 |
 
---- 
+| Prop      | Type   | Description                                                       |
+| --------- | ------ | ----------------------------------------------------------------- |
+| `name`  | string | The name of the action.                                           |
+| `type`  | string | The type of action (button, link).                                |
+| `props` | object | Props for the action (e.g., href for links, onClick for buttons). |
+
+---
 
 ## Customization
 
@@ -171,7 +172,7 @@ The progress bar color is automatically set based on the alert type:
 - Info: `bg-pending`
 - Guard: `bg-destructive`
 
---- 
+---
 
 ## API Reference
 
@@ -179,16 +180,16 @@ The progress bar color is automatically set based on the alert type:
 
 Returns an object with the following methods:
 
-| Method          | Description                                                                 |
-| --------------- | --------------------------------------------------------------------------- |
-| `success()` | Displays a success alert.                                                   |
-| `error()`   | Displays an error alert.                                                     |
-| `info()`    | Displays an info alert.                                                      |
-| `guard()`   | Displays a guard alert.                                                      |
-| `dismiss()` | Dismisses the currently displayed alert.                                    |
+| Method        | Description                              |
+| ------------- | ---------------------------------------- |
+| `success()` | Displays a success alert.                |
+| `error()`   | Displays an error alert.                 |
+| `info()`    | Displays an info alert.                  |
+| `guard()`   | Displays a guard alert.                  |
+| `dismiss()` | Dismisses the currently displayed alert. |
 
 ---
 
 ## License
-Licensed  under the MIT License. See [LICENSE](LICENSE) for more information.
 
+Licensed  under the MIT License. See [LICENSE](LICENSE) for more information.
