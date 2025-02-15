@@ -1,15 +1,32 @@
 {
-  "name": "alert-notification",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@phyo-alpha/alert-dialog",
+  "version": "1.0.0",
+  "description": "A lightweight and customizable alert dialog library for React.",
+  "main": "./dist/alert-dialog.umd.cjs",
+  "module": "./dist/alert-dialog.js",
+  "types": "./dist/index.d.ts",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "keywords": [
+    "react",
+    "alert",
+    "dialog",
+    "shadcn",
+    "tailwindcss"
+  ],
+  "author": "Edward Phyo <edwardphyo115@gmail.com>",
+  "license": "MIT",
   "dependencies": {
+    "@phyo-alpha/alert-dialog": "file:",
+    "@Phyo-Alpha/Alert-Dialog": "file:",
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/vite": "^4.0.6",
@@ -35,6 +52,7 @@
     "globals": "^15.14.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.22.0",
-    "vite": "^6.1.0"
+    "vite": "^6.1.0",
+    "vite-plugin-dts": "^4.5.0"
   }
 }

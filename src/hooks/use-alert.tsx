@@ -16,9 +16,9 @@ const AlertDialogType = {
     GUARD_ALERT: 'GUARD_ALERT',
 } as const;
 
-type AlertDialogTypeKeys = keyof typeof AlertDialogType;
+export type AlertDialogTypeKeys = keyof typeof AlertDialogType;
 
-type AlertActionType = {
+export type AlertActionType = {
     name: string
 } & ({
     type: 'link'
