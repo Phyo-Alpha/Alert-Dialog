@@ -40,14 +40,20 @@ export const demoItems = [
     description: 'Destructive action confirmations',
     demoComponent: <GuardAlert />,
     codeSnippet: `alert.guard({
-    title: 'Confirm',
-    description: 'Are you sure? This cannot be undone',
-    actions: [{
-      name: 'Delete',
-      type: 'button',
-      props: { variant: 'destructive' }
-    }]
-  })`,
+        title: 'Confirm',
+        description: 'Are you sure? This cannot be undone',
+        actions: [{
+            name: 'Delete',
+            type: 'button',
+            props: {
+                variant: 'destructive',
+                onClick: () => {
+                    Alert.dismiss()
+                    alert('You did something destructive')
+                }
+            }
+        }]
+    })`,
     titleClassName: 'text-destructive',
   },
   {

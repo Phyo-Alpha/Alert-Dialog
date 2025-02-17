@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { AlertDialogProps, useAlert } from "@/hooks/use-alert"
 
 export default function GuardAlert() {
-    const { alert } = useAlert()
+    const { alert: Alert } = useAlert()
 
     const guardAlert: AlertDialogProps = {
         title: 'Confirm',
@@ -10,12 +10,18 @@ export default function GuardAlert() {
         actions: [{
             name: 'Delete',
             type: 'button',
-            props: { variant: 'destructive' }
+            props: {
+                variant: 'destructive',
+                onClick: () => {
+                    Alert.dismiss()
+                    alert('You did something destructive')
+                }
+            }
         }]
     }
 
     function showGuardAlert() {
-        alert.guard(guardAlert)
+        Alert.guard(guardAlert)
     }
 
     return (
