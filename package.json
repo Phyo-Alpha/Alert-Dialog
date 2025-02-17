@@ -1,6 +1,6 @@
 {
   "name": "@phyo-alpha/alert-dialog",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A lightweight and customizable alert dialog library for React.",
   "main": "./dist/alert-dialog.umd.cjs",
   "module": "./dist/alert-dialog.js",

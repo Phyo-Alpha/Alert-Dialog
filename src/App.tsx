@@ -38,7 +38,7 @@ function App() {
           <CardHeader>
             <CardTitle>📦 Installation</CardTitle>
             <CardDescription>Get started quickly</CardDescription>
-          </CardHeader>
+          </CardHeader>~
           <CardContent className="px-2">
             <CodeBlock className="code-block w-80">
               npm install @phyo-alpha/alert-dialog
