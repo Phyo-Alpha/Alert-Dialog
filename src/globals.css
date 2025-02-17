@@ -10,6 +10,7 @@
   --color-destructive: hsl(0 100% 50%);
   --color-pending: hsl(45.6 100% 52%);
   --color-accent: hsl(240 3% 20%);
+  --color-info: var(--color-pending);
 }
 
 :root {

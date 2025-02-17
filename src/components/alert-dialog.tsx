@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { TriangleAlert } from "lucide-react";
+import { TriangleAlert, Info } from "lucide-react";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useProgress } from "@/hooks/use-progress";
-import { useAlert } from "@/hooks/use-alert";
+import { AlertActionType, useAlert } from "@/hooks/use-alert";
 
 const AlertDialog = () => {
     const { alert } = useAlert();
@@ -15,24 +15,25 @@ const AlertDialog = () => {
         duration: 1000,
     });
 
-    // Start/reset progress when alert.open changes
     useEffect(() => {
         if (alert.open) {
-            start();
+            start()
         } else {
-            reset();
+            reset()
         }
     }, [alert.open, start, reset]);
 
-    const progressBarColor = modelType === 'SUCCESS_ALERT' ? 'bg-success' :
-        modelType === 'ERROR_ALERT' ? 'bg-destructive' :
-            modelType === 'GUARD_ALERT' ? 'bg-destructive' : 'bg-success';
+    const progressBarColor = modelType ? {
+        'SUCCESS_ALERT': 'bg-success',
+        'ERROR_ALERT': 'bg-destructive',
+        'GUARD_ALERT': 'bg-destructive',
+        'INFO_ALERT': 'bg-info'
+    }[modelType] : 'bg-success';
 
     return (
         <Dialog {...props}>
             <DialogContent className="w-full max-w-[600px] p-0 pb-6" close={() => alert.dismiss()}>
                 <div className="flex flex-col items-center gap-6 relative">
-                    {/* Progress Bar */}
                     <div className="w-full h-1 bg-background">
                         <div
                             className={cn("h-full transition-all duration-1000 ease-linear", progressBarColor)}
@@ -42,111 +43,101 @@ const AlertDialog = () => {
                     {modelType === 'SUCCESS_ALERT' && <SuccessAlert />}
                     {modelType === 'ERROR_ALERT' && <ErrorAlert />}
                     {modelType === 'GUARD_ALERT' && <GuardAlert />}
+                    {modelType === 'INFO_ALERT' && <InfoAlert />}
                 </div>
             </DialogContent>
         </Dialog>
     );
 };
 
-function SuccessAlert() {
+const renderActions = (actions: AlertActionType[]) => (
+    <div className="flex flex-col gap-2">
+        {actions?.map((action, i) => action.type === 'link' ? (
+            <a key={i} {...action.props} className="text-center text-sm text-accent">
+                {action.name}
+            </a>
+        ) : (
+            <Button key={i} size="lg" {...action.props}>
+                {action.name}
+            </Button>
+        ))}
+    </div>
+);
+
+const SuccessAlert = () => {
     const { alert } = useAlert();
-    const { modelType } = alert
+    if (alert.modelType !== 'SUCCESS_ALERT') return null;
 
-
-    if (modelType !== 'SUCCESS_ALERT') return null
-
-    const { title, description, icon, actions } = alert
+    const { title, description, icon, actions } = alert;
 
     return (
         <>
             {icon}
             <DialogTitle className="font-bold text-2xl uppercase">{title}</DialogTitle>
             <DialogDescription className="text-sm text-muted-foreground">{description}</DialogDescription>
-            <div className="flex flex-col gap-2">
-                {actions?.map((action, i) => {
-                    if (action.type === 'link') {
-                        return (
-                            <a key={i} {...action.props} className="text-center text-sm text-accent">
-                                {action.name}
-                            </a>
-                        )
-                    }
-                    return (
-                        <Button key={i} size="lg" {...action.props}>
-                            {action.name}
-                        </Button>
-                    )
-                })}
-            </div>
+            {actions && renderActions(actions)}
         </>
-    )
-}
+    );
+};
 
-function ErrorAlert() {
-    const { alert } = useAlert()
+const ErrorAlert = () => {
+    const { alert } = useAlert();
+    if (alert.modelType !== 'ERROR_ALERT') return null;
 
-    const { modelType } = alert
-
-    if (modelType !== 'ERROR_ALERT') return null
-
-    const { ApiError: error, icon, actions } = alert
+    const { ApiError: error, icon, actions } = alert;
 
     return (
         <>
             {icon ?? <TriangleAlert className="text-destructive size-20" />}
-            <DialogTitle className="font-bold text-2xl uppercase text-destructive">{error?.status ?? 'ERROR!'}</DialogTitle>
-            <DialogDescription className="text-sm">{error?.data.message ?? 'INTERNAL SERVER ERROR!'}</DialogDescription>
-            <div className="flex flex-col">
-                {actions?.map((action, i) => {
-                    if (action.type === 'link') {
-                        return (
-                            <a key={i} {...action.props}>
-                                {action.name}
-                            </a>
-                        )
-                    }
-                    return (
-                        <Button key={i}  {...action.props}>
-                            {action.name}
-                        </Button>
-                    )
-                })}
-            </div>
+            <DialogTitle className="font-bold text-2xl uppercase text-destructive">
+                {error?.status ?? 'ERROR!'}
+            </DialogTitle>
+            <DialogDescription className="text-sm">
+                {error?.data.message ?? 'INTERNAL SERVER ERROR!'}
+            </DialogDescription>
+            {actions && renderActions(actions)}
         </>
-    )
-}
+    );
+};
 
-function GuardAlert() {
-    const { alert } = useAlert()
+const GuardAlert = () => {
+    const { alert } = useAlert();
+    if (alert.modelType !== 'GUARD_ALERT') return null;
 
-    const { modelType } = alert
+    const { title, description, icon, actions } = alert;
 
-    if (modelType !== 'GUARD_ALERT') return null
-
-    const { title, description, icon, actions } = alert
     return (
         <>
             {icon ?? <TriangleAlert className="text-destructive size-20" />}
-            <DialogTitle className="font-bold text-2xl uppercase text-destructive">{title ?? 'WARNING!'}</DialogTitle>
-            <DialogDescription className="text-sm text-muted-foreground">{description ?? 'The following action is dangerous. Are you sure?'}</DialogDescription>
-            <div className="flex flex-col">
-                {actions?.map((action, i) => {
-                    if (action.type === 'link') {
-                        return (
-                            <a key={i} {...action.props}>
-                                {action.name}
-                            </a>
-                        )
-                    }
-                    return (
-                        <Button key={i} {...action.props} variant="destructive">
-                            {action.name}
-                        </Button>
-                    )
-                })}
-            </div>
+            <DialogTitle className="font-bold text-2xl uppercase text-destructive">
+                {title ?? 'WARNING!'}
+            </DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground">
+                {description ?? 'The following action is dangerous. Are you sure?'}
+            </DialogDescription>
+            {actions && renderActions(actions)}
         </>
-    )
-}
+    );
+};
+
+const InfoAlert = () => {
+    const { alert } = useAlert();
+    if (alert.modelType !== 'INFO_ALERT') return null;
+
+    const { title, description, icon, actions } = alert;
+
+    return (
+        <>
+            {icon ?? <Info className="text-info size-20" />}
+            <DialogTitle className="font-bold text-2xl uppercase text-info">
+                {title ?? 'INFORMATION'}
+            </DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground">
+                {description ?? 'Additional information about this action'}
+            </DialogDescription>
+            {actions && renderActions(actions)}
+        </>
+    );
+};
 
 export default AlertDialog;
