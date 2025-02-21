@@ -27,7 +27,7 @@ Demo site : [Demo](https://alert-dialog.vercel.app)
 2. Import the `AlertProvider` component in your app:
 
    ```code
-   import { AlertProvider } from "@your-library/alerts";
+   import { AlertProvider } from "@phyo-alpha/alert-dialog";
 
     function App() {
         return (
@@ -45,7 +45,7 @@ Demo site : [Demo](https://alert-dialog.vercel.app)
 ### Basic Example
 
 ```code
-import { useAlert } from "@your-library/alerts";
+import { useAlert } from "@phyo-alpha/alert-dialog";
 
 function Example() {
   const { alert } = useAlert();
